@@ -1,0 +1,2 @@
+1:09:48
+Finalizou depois de se conectar com o supabase
