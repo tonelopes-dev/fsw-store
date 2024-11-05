@@ -1,2 +1,1 @@
-1:09:48
-Finalizou depois de se conectar com o supabase
+terminamos de configurar o [...nextauth] e agora vamos fazer o outro setup
