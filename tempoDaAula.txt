@@ -1,1 +1,1 @@
-terminamos de configurar o [...nextauth] e agora vamos fazer o outro setup
+iniciar aula 02
