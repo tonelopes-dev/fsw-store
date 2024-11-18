@@ -11,11 +11,18 @@ import {
 } from "lucide-react";
 import { Button } from "./button";
 import { Card } from "./card";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "./sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Separator } from "./separator";
+import Link from "next/link";
 
 const Header = () => {
   const { status, data } = useSession();
@@ -50,10 +57,9 @@ const Header = () => {
                   {data.user.image && <AvatarImage src={data.user.image!} />}
                 </Avatar>
                 <div className="flex flex-col">
-                  {" "}
                   <p className="font-semibold">{data?.user?.name}</p>
                   <p className="text-xs opacity-75">Boas compras!</p>
-                </div>{" "}
+                </div>
               </div>
               <Separator />
             </div>
@@ -90,11 +96,17 @@ const Header = () => {
               <PercentIcon size={16} />
               Ofertas
             </Button>
-
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ListOrderedIcon size={16} />
-              Catálago
-            </Button>
+            <SheetClose asChild>
+              <Link href="/catalog">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <ListOrderedIcon size={16} />
+                  Catálago
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
