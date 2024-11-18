@@ -1,1 +1,1 @@
-aula Catálogo de Produtos: 1:26:00 Finalizado o component productList e inicializando o segundo banner da página Home.
+aula Catálogo de Produtos: 2:07:27finalizado a página de catalogos e iniciando a página de produtos

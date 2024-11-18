@@ -16,6 +16,7 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "./sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -44,7 +45,7 @@ const Header = () => {
         </SheetTrigger>
         <SheetContent side={"left"}>
           <SheetHeader className="text-left text-lg font-semibold">
-            Menu
+            <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
 
           {status === "authenticated" && data?.user && (
@@ -87,11 +88,18 @@ const Header = () => {
                 Fazer Logout
               </Button>
             )}
+            <SheetClose asChild>
+              <Link href={"/"}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <HomeIcon size={16} />
+                  Início
+                </Button>
+              </Link>
+            </SheetClose>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <HomeIcon size={16} />
-              Início
-            </Button>
             <Button variant="outline" className="w-full justify-start gap-2">
               <PercentIcon size={16} />
               Ofertas
@@ -110,9 +118,13 @@ const Header = () => {
           </div>
         </SheetContent>
       </Sheet>
-      <h1 className="text-lg font-semibold">
-        <span className="font-bold text-primary">FSW</span> Store
-      </h1>
+
+      <Link href={"/"}>
+        <h1 className="text-lg font-semibold">
+          <span className="font-bold text-primary">FSW</span> Store
+        </h1>
+      </Link>
+
       <Button size="icon" variant="outline">
         <ShoppingCartIcon />
       </Button>
