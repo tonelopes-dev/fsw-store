@@ -1,55 +1,60 @@
+"use client";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import Image from "next/image";
-import { Badge } from "./badge";
-import { ArrowDown } from "lucide-react";
+import Link from "next/link";
+import DiscountBadge from "./discount-badge";
+import { cn } from "@/lib/utils";
 
 interface ProductItemProps {
   product: ProductWithTotalPrice;
+  className?: string;
 }
-const ProductItem = ({ product }: ProductItemProps) => {
+
+const ProductItem = ({ product, className }: ProductItemProps) => {
   return (
-    <div className="flex max-w-[170px] flex-col gap-4">
-      <div className="relative flex h-[170px] w-[170px] items-center justify-center rounded-lg bg-accent">
+    <Link
+      href={`/product/${product.slug}`}
+      className={cn("flex min-w-[156px] flex-col gap-4", className)}
+    >
+      <div className="relative flex aspect-square w-full items-center justify-center rounded-lg bg-accent">
         <Image
           src={product.imageUrls[0]}
-          alt={product.name}
-          width={0}
           height={0}
-          priority={true}
+          width={0}
           sizes="100vw"
-          className="h-auto max-h-[70%] w-auto max-w-[80%]"
-          style={{
-            objectFit: "contain",
-          }}
+          className="h-auto max-h-[70%] w-auto max-w-[80%] object-contain"
+          alt={product.name}
         />
+
         {product.discountPercentage > 0 && (
-          <Badge className="absolute left-3 top-3 rounded-full px-2 py-[2px]">
-            <ArrowDown size={14} /> {product.discountPercentage}%
-          </Badge>
+          <DiscountBadge className="absolute left-3 top-3">
+            {product.discountPercentage}
+          </DiscountBadge>
         )}
       </div>
+
       <div className="flex flex-col gap-1">
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-          {product.name}
-        </p>
+        <p className="truncate text-sm">{product.name}</p>
+
         <div className="flex items-center gap-2">
           {product.discountPercentage > 0 ? (
             <>
-              <p className="font-semibold">
-                R$ {product.totalPrice.toFixed(2)}
+              <p className="truncate font-semibold lg:text-lg">
+                R$ {product.totalPrice}
               </p>
-              <p className="text-xs line-through opacity-75">
-                R$ {product.basePrice.toFixed(2)}
+
+              <p className="truncate text-xs line-through opacity-75 lg:text-sm">
+                R$ {product.basePrice}
               </p>
             </>
           ) : (
-            <p className="text-sm font-semibold">
-              R$ {product.basePrice.toFixed(2)}
+            <p className="truncate text-sm font-semibold">
+              R$ {product.basePrice}
             </p>
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

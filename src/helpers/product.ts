@@ -1,22 +1,39 @@
 import { Product } from "@prisma/client";
 
-export interface ProductWithTotalPrice extends Product {
+export interface ProductWithTotalPrice {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  basePrice: number;
+  imageUrls: string[];
+  categoryId: string;
+  discountPercentage: number;
   totalPrice: number;
 }
 
+/**
+ * Função para calcular o preço total do produto.
+ */
 export const computeProductTotalPrice = (
   product: Product,
 ): ProductWithTotalPrice => {
-  if (product.discountPercentage === 0) {
-    return {
-      ...product,
-      totalPrice: Number(product.basePrice),
-    };
-  }
-  const totalDiscount =
-    Number(product.basePrice) * (product.discountPercentage / 100);
+  const basePrice =
+    typeof product.basePrice === "number"
+      ? product.basePrice
+      : Number(product.basePrice);
+  const discountPercentage =
+    typeof product.discountPercentage === "number"
+      ? product.discountPercentage
+      : Number(product.discountPercentage);
+
+  const totalDiscount = basePrice * (discountPercentage / 100);
+  const totalPrice = basePrice - totalDiscount;
+
   return {
     ...product,
-    totalPrice: Number(product.basePrice) - totalDiscount,
+    basePrice,
+    discountPercentage,
+    totalPrice,
   };
 };
