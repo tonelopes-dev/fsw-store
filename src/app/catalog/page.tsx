@@ -6,7 +6,6 @@ import CategoryItem from "./components/category-item";
 const CatalogPage = async () => {
   // Your component implementation here
   const categories = await prismaClient.category.findMany({});
-  console.log(categories);
   return (
     <div className="flex flex-col gap-8 p-5">
       <Badge
