@@ -1,13 +1,14 @@
 import { Badge } from "@/components/ui/badge";
+import { CATEGORY_ICON } from "@/constants/category-icon";
 import { Category } from "@prisma/client";
-import {
+/* import {
   HeadphonesIcon,
   KeyboardIcon,
   MonitorIcon,
   MouseIcon,
   SpeakerIcon,
   SquareIcon,
-} from "lucide-react";
+} from "lucide-react"; */
 import Link from "next/link";
 
 interface CategoryItemProps {
@@ -15,7 +16,8 @@ interface CategoryItemProps {
 }
 
 export const CategoryItem = ({ category }: CategoryItemProps) => {
-  const categoryIcon = {
+  const categoryIcon = CATEGORY_ICON;
+  /*   const categoryIcon = {
     keyboards: <KeyboardIcon size={16} className="ml-2" />,
     monitors: <MonitorIcon size={16} className="ml-2" />,
     headphones: <HeadphonesIcon size={16} className="ml-2" />,
@@ -23,7 +25,7 @@ export const CategoryItem = ({ category }: CategoryItemProps) => {
     speakers: <SpeakerIcon size={16} className="ml-2" />,
     mouses: <MouseIcon size={16} className="ml-2" />,
     // Add more category icons as needed
-  };
+  }; */
   return (
     <Link href={`/category/${category.slug}`}>
       <Badge
