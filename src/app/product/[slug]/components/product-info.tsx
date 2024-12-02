@@ -65,11 +65,11 @@ const ProductInfo = ({
         <p className="text-sm opacity-60">{description}</p>
       </div>
 
-      <Button className="my-8 font-bold uppercase">
+      <Button className="mb-3 mt-8 font-bold uppercase">
         Adicionar ao carrinho
       </Button>
 
-      <div className="my-5 flex items-center justify-between rounded-lg bg-accent px-5 py-2">
+      <div className="mt-2 flex items-center justify-between rounded-lg bg-accent px-5 py-3">
         <div className="flex items-center gap-2">
           <TruckIcon />
           <div className="flex flex-col">
