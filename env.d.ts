@@ -8,5 +8,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: string;
     NEXTAUTH_SECRET: string;
     HOST_URL: string;
+    NEXTAUTH_URL: string;
+    NODE_ENV: "development" | "production";
   }
 }
