@@ -24,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 import { Separator } from "./separator";
 import Link from "next/link";
+import Cart from "./cart";
 
 const Header = () => {
   const { status, data } = useSession();
@@ -132,9 +133,7 @@ const Header = () => {
             </Button>
           </SheetTrigger>
           <SheetContent side={"right"}>
-            <SheetHeader className="text-left text-lg font-semibold">
-              <SheetTitle>Meus produtos</SheetTitle>
-            </SheetHeader>
+            <Cart />
           </SheetContent>
         </Sheet>
       </Card>
