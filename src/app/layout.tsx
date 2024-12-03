@@ -23,7 +23,6 @@ export default function RootLayout({
             <CartProvider>
               <Header />
               <div className="flex-1">{children}</div>
-
               <Footer />
             </CartProvider>
           </AuthProvider>

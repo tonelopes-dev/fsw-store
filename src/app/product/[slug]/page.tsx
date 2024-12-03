@@ -12,7 +12,7 @@ interface ProductDetailsPageProps {
 }
 
 const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
   const product = await prismaClient.product.findFirst({
     where: {
       slug,
@@ -32,14 +32,34 @@ const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
   if (!product) {
     return <p>Product not found.</p>;
   }
+
+  // Converting the product data to avoid Decimal objects being passed to client components
+  const productData = {
+    ...product,
+    basePrice: product.basePrice, // Convert Decimal to number
+    discountPercentage: Number(product.discountPercentage), // Convert Decimal to number
+    // Ensuring that category.products is also converted if needed
+    category: {
+      ...product.category,
+      products: product.category.products.map((prod) => ({
+        ...prod,
+        basePrice: prod.basePrice.toNumber(),
+        discountPercentage: Number(prod.discountPercentage),
+      })),
+    },
+  };
+
   return (
     <div className="pb8 flex flex-col gap-8">
-      <ProductImages imageUrls={product.imageUrls} name={product.name} />
+      <ProductImages
+        imageUrls={productData.imageUrls}
+        name={productData.name}
+      />
 
-      <ProductInfo product={computeProductTotalPrice(product)} />
+      <ProductInfo product={computeProductTotalPrice(productData)} />
       <div>
         <SectionTitle>Produtos recomendados</SectionTitle>
-        <ProductList products={product.category.products} />
+        <ProductList products={productData.category.products} />
       </div>
     </div>
   );
