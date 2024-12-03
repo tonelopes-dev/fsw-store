@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/ui/header";
-import { AuthProvider } from "./providers/auth";
+import { AuthProvider } from "../providers/auth";
 import Footer from "@/components/ui/footer";
+import CartProvider from "@/providers/cart";
 
 export const metadata: Metadata = {
   title: "FWS Store",
@@ -19,10 +20,12 @@ export default function RootLayout({
       <body>
         <div className="flex h-full flex-col">
           <AuthProvider>
-            <Header />
-            <div className="flex-1">{children}</div>
+            <CartProvider>
+              <Header />
+              <div className="flex-1">{children}</div>
 
-            <Footer />
+              <Footer />
+            </CartProvider>
           </AuthProvider>
         </div>
       </body>

@@ -32,9 +32,7 @@ const ProductInfo = ({
       <div className="flex items-center gap-2">
         <h1 className="text-xl font-bold">R$ {totalPrice.toFixed(2)}</h1>
         {discountPercentage > 0 && (
-          <DiscountBadge className="px-2 py-[2px]">
-            {discountPercentage}
-          </DiscountBadge>
+          <DiscountBadge>{discountPercentage}</DiscountBadge>
         )}
       </div>
       {discountPercentage > 0 && (
