@@ -10,13 +10,14 @@ export interface ProductWithTotalPrice {
   categoryId: string;
   discountPercentage: number;
   totalPrice: number;
+  quantity: number; // Adicione a quantidade aqui
 }
 
 /**
  * Função para calcular o preço total do produto.
  */
 export const computeProductTotalPrice = (
-  product: Product,
+  product: Product & { quantity: number }, // Tipo ajustado para garantir que quantity seja passado
 ): ProductWithTotalPrice => {
   const basePrice =
     typeof product.basePrice === "number"
@@ -35,5 +36,6 @@ export const computeProductTotalPrice = (
     basePrice,
     discountPercentage,
     totalPrice,
+    quantity: product.quantity, // Garantir que a quantidade seja preservada
   };
 };
