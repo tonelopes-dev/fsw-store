@@ -5,12 +5,11 @@ import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
 
 interface CategoryProductsProps {
-  params: { slug: string };
-  slug: string;
+  params: { slug: string }; // `params` contém `slug`
 }
 
 const CategoryProducts = async ({ params }: CategoryProductsProps) => {
-  const { slug } = await params; // Agora acessa `params.slug` diretamente
+  const { slug } = params; // Acessa `params.slug` corretamente
 
   const category = await prismaClient.category.findFirst({
     where: {
@@ -22,7 +21,7 @@ const CategoryProducts = async ({ params }: CategoryProductsProps) => {
   });
 
   if (!category) {
-    return null;
+    return <p>Categoria não encontrada.</p>; // Retorna uma mensagem apropriada
   }
 
   return (
