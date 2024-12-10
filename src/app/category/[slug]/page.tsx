@@ -6,6 +6,10 @@ import { prismaClient } from "@/lib/prisma";
 
 interface CategoryProductsProps {
   params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+  children?: React.ReactNode;
+  [key: string]: unknown;
+  slug: string;
 }
 
 const CategoryProducts = async ({ params }: CategoryProductsProps) => {
