@@ -8,5 +8,12 @@
   "version": 2,
   "env": {
     "DATABASE_URL": "@DATABASE_URL"
-  }
+  },
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
