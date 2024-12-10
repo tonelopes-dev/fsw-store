@@ -49,8 +49,7 @@ const Cart = () => {
           </div>
         </ScrollArea>
       </div>
-
-      {products.length > 0 && (
+      {products.length > 0 && products.length > 0 && (
         <div className="flex flex-col gap-3">
           <Separator />
 

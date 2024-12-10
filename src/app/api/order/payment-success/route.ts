@@ -19,8 +19,8 @@ export const POST = async (request: Request) => {
     process.env.STRIPE_WEBHOOK_SECRET_KEY!,
   );
 
-  if (event.type === "checkout.session.completed") {
-    /*  console.log("Checkout session completed:", event.data.object); */
+  /* if (event.type === "checkout.session.completed") {
+      console.log("Checkout session completed:", event.data.object);
 
     const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
       event.data.object.id,
@@ -30,10 +30,10 @@ export const POST = async (request: Request) => {
     );
     const orderProducts = sessionWithLineItems.line_items;
     console.log(orderProducts);
-  }
+  }*/
 
   if (event.type === "checkout.session.async_payment_failed") {
-    console.log("Checkout session failed:", event.data.object);
+    // console.log("Checkout session failed:", event.data.object);
   }
   // CRIAR PEDIDO
 

@@ -1,1 +1,1 @@
-Iniciar aula 03 Carrinho de compras
+Iniciar aula 04 Pagamentos com Stripe e Deploy: 1:01:00
