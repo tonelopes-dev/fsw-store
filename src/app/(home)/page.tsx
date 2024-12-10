@@ -30,6 +30,11 @@ export default async function Home() {
       },
     },
   });
+  if (!deals || !keyboards || !mouses) {
+    console.error("Error fetching products");
+    return <p>Erro ao buscar produtos</p>;
+  }
+
   return (
     <div className="flex flex-col gap-8 py-8">
       <PromoBanner
