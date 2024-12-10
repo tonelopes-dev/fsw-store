@@ -4,38 +4,51 @@ import { CATEGORY_ICON } from "@/constants/category-icon";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
 
-interface CategoryProductsProps {
-  params: { slug: string }; // `params` contém `slug`
-}
+type CategoryProductsProps = {
+  params: Promise<{ slug: string }>;
+};
 
 const CategoryProducts = async ({ params }: CategoryProductsProps) => {
-  const { slug } = params; // Acessa `params.slug` corretamente
+  const slug = (await params).slug;
+  let category;
+  console.log(slug);
+  try {
+    category = await prismaClient.category.findFirst({
+      where: {
+        slug,
+      },
+      include: {
+        products: true,
+      },
+    });
 
-  const category = await prismaClient.category.findFirst({
-    where: {
-      slug,
-    },
-    include: {
-      products: true,
-    },
-  });
-
-  if (!category) {
-    return <p>Categoria não encontrada.</p>; // Retorna uma mensagem apropriada
+    if (!category) {
+      console.warn(`Category with slug "${slug}" not found.`);
+      return (
+        <div className="text-center text-red-500">
+          Categoria não encontrada.
+        </div>
+      );
+    }
+  } catch (error) {
+    console.error(error);
   }
 
   return (
     <div className="mx-auto flex flex-col gap-8 p-5 lg:container lg:gap-10 lg:py-10">
-      <Badge variant="heading" className="w-fit">
+      <Badge variant="heading">
         {CATEGORY_ICON[slug as keyof typeof CATEGORY_ICON]}
-        {category.name}
+        {category!.name}
       </Badge>
 
       <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
-        {category.products.map((product) => (
+        {category!.products.map((product) => (
           <ProductItem
             key={product.id}
-            product={computeProductTotalPrice(product)}
+            product={{
+              ...product,
+              totalPrice: computeProductTotalPrice(product).totalPrice,
+            }}
           />
         ))}
       </div>

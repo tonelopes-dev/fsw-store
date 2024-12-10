@@ -11,4 +11,7 @@ declare namespace NodeJS {
     NEXTAUTH_URL: string;
     NODE_ENV: "development" | "production";
   }
+  interface global {
+    cachedPrisma: PrismaClient;
+  }
 }

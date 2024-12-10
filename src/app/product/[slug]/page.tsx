@@ -5,14 +5,12 @@ import { computeProductTotalPrice } from "@/helpers/product";
 import ProductList from "@/components/ui/product-list";
 import SectionTitle from "@/components/ui/section-title";
 
-interface ProductDetailsPageProps {
-  params: {
-    slug: string;
-  };
-}
+type ProductDetailsPageProps = {
+  params: Promise<{ slug: string }>;
+};
 
 const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
-  const { slug } = await params;
+  const slug = (await params).slug;
   const product = await prismaClient.product.findFirst({
     where: {
       slug,

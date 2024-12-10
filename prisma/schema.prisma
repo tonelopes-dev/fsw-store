@@ -25,6 +25,7 @@ model Product {
   description        String
   basePrice          Float
   imageUrls          String[]
+  quantity           Int            @default(0) // Adiciona o campo `quantity`
   categoryId         String
   category           Category       @relation(fields: [categoryId], references: [id])
   discountPercentage Int            @default(0)

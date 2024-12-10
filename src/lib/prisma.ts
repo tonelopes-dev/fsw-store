@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
 declare global {
-  let cachedPrisma: PrismaClient | undefined;
+  // eslint-disable-next-line no-var
+  var cachedPrisma: PrismaClient | undefined;
 }
 
 let prisma: PrismaClient;
@@ -9,14 +10,10 @@ let prisma: PrismaClient;
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
-  if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClient();
+  if (!globalThis.cachedPrisma) {
+    globalThis.cachedPrisma = new PrismaClient();
   }
-  prisma = global.cachedPrisma;
+  prisma = globalThis.cachedPrisma;
 }
 
 export const prismaClient = prisma;
-
-prisma.$on("query", (e) => {
-  console.error("Erro Prisma:", e.query, e.params);
-});
