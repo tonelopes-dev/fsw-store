@@ -5,7 +5,8 @@
       "use": "@vercel/node"
     }
   ],
+  "version": 2,
   "env": {
-    "DATABASE_URL": "postgresql://postgres.iaxumdrpqawbiofptsxz:nq85dK8ZJZb3Lr9V@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
+    "DATABASE_URL": "@DATABASE_URL"
   }
 }
