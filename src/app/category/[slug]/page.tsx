@@ -11,7 +11,6 @@ type CategoryProductsProps = {
 const CategoryProducts = async ({ params }: CategoryProductsProps) => {
   const slug = (await params).slug;
   let category;
-  console.log(slug);
   try {
     category = await prismaClient.category.findFirst({
       where: {
