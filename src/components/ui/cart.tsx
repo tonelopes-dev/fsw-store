@@ -1,3 +1,4 @@
+"use client";
 import { ShoppingCartIcon } from "lucide-react";
 import { Badge } from "./badge";
 import { useContext } from "react";
@@ -9,6 +10,7 @@ import { ScrollArea } from "./scroll-area";
 import { Button } from "./button";
 import createCheckout from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
+import { SheetTitle } from "./sheet";
 
 const Cart = () => {
   const { products, subtotal, total, totalDiscount } = useContext(CartContext);
@@ -24,10 +26,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="flex h-full flex-col gap-8">
+    <div className="flex h-full flex-col gap-8 text-sm">
       <Badge variant="heading">
-        <ShoppingCartIcon size={16} />
-        Carrinho
+        <ShoppingCartIcon size={18} />
+        <SheetTitle className="w-fit rounded-full px-2 py-[0.375rem] text-base uppercase">
+          Carrinho
+        </SheetTitle>
       </Badge>
 
       {/* RENDERIZAR OS PRODUTOS */}
