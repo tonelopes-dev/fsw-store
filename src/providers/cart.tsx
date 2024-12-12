@@ -1,7 +1,7 @@
 "use client";
 
 import { ProductWithTotalPrice } from "@/helpers/product";
-import { createContext, ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 
 export interface CartProduct extends ProductWithTotalPrice {
   quantity: number;
@@ -9,9 +9,6 @@ export interface CartProduct extends ProductWithTotalPrice {
 
 interface ICartContext {
   products: CartProduct[];
-  cartTotalPrice: number;
-  cartBasePrice: number;
-  cartTotalDiscount: number;
   total: number;
   subtotal: number;
   totalDiscount: number;
@@ -23,9 +20,6 @@ interface ICartContext {
 
 export const CartContext = createContext<ICartContext>({
   products: [],
-  cartTotalPrice: 0,
-  cartBasePrice: 0,
-  cartTotalDiscount: 0,
   total: 0,
   subtotal: 0,
   totalDiscount: 0,
@@ -37,91 +31,79 @@ export const CartContext = createContext<ICartContext>({
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
+
+  // Sincroniza o estado com o localStorage
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem("cart") || "[]");
+    setProducts(storedProducts);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(products));
+  }, [products]);
+
   const subtotal = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + Number(product.basePrice) * product.quantity;
-    }, 0);
+    return products.reduce(
+      (acc, product) => acc + product.basePrice * product.quantity,
+      0,
+    );
   }, [products]);
 
   const total = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + Number(product.totalPrice) * product.quantity;
-    }, 0);
+    return products.reduce(
+      (acc, product) => acc + product.totalPrice * product.quantity,
+      0,
+    );
   }, [products]);
 
   const totalDiscount = subtotal - total;
 
   const addProductToCart = (product: CartProduct) => {
-    const productIsAlreadyInCart = products.some(
-      (cartProduct) => cartProduct.id === product.id,
-    );
-
-    if (productIsAlreadyInCart) {
-      setProducts((prevProducts) =>
-        prevProducts.map((cartProduct) => {
-          if (cartProduct.id === product.id) {
-            return {
-              ...cartProduct,
-              quantity: cartProduct.quantity + product.quantity,
-            };
-          }
-          return cartProduct;
-        }),
-      );
-      return;
-    }
-
-    setProducts((prevProducts) => [...prevProducts, product]);
+    setProducts((prev) => {
+      const exists = prev.find((p) => p.id === product.id);
+      if (exists) {
+        return prev.map((p) =>
+          p.id === product.id
+            ? { ...p, quantity: p.quantity + product.quantity }
+            : p,
+        );
+      }
+      return [...prev, product];
+    });
   };
 
   const decreaseProductQuantity = (productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts
-        .map((cartProduct) => {
-          if (cartProduct.id === productId) {
-            return {
-              ...cartProduct,
-              quantity: cartProduct.quantity - 1,
-            };
-          }
-          return cartProduct;
-        })
-        .filter((cartProduct) => cartProduct.quantity > 0),
+    setProducts((prev) =>
+      prev
+        .map((p) =>
+          p.id === productId ? { ...p, quantity: p.quantity - 1 } : p,
+        )
+        .filter((p) => p.quantity > 0),
     );
   };
+
   const increaseProductQuantity = (productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((cartProduct) => {
-        if (cartProduct.id === productId) {
-          return {
-            ...cartProduct,
-            quantity: cartProduct.quantity + 1,
-          };
-        }
-        return cartProduct;
-      }),
+    setProducts((prev) =>
+      prev.map((p) =>
+        p.id === productId ? { ...p, quantity: p.quantity + 1 } : p,
+      ),
     );
   };
 
   const removeProductFromCart = (productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((cartProduct) => cartProduct.id !== productId),
-    );
+    setProducts((prev) => prev.filter((p) => p.id !== productId));
   };
 
   return (
     <CartContext.Provider
       value={{
         products,
-        cartTotalPrice: 0,
-        cartBasePrice: 0,
-        cartTotalDiscount: 0,
         total,
         subtotal,
         totalDiscount,
         addProductToCart,
-        increaseProductQuantity,
         decreaseProductQuantity,
+        increaseProductQuantity,
         removeProductFromCart,
       }}
     >

@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <div>
       <Card className="flex items-center justify-between p-[1.875rem]">
         <Sheet>
           <SheetTrigger asChild>
@@ -45,7 +45,7 @@ const Header = () => {
               <MenuIcon />
             </Button>
           </SheetTrigger>
-          <SheetContent side={"left"}>
+          <SheetContent side={"left"} aria-describedby="menu">
             <SheetHeader className="text-left text-lg font-semibold">
               <SheetTitle aria-describedby="menu">Menu</SheetTitle>
             </SheetHeader>
@@ -132,12 +132,12 @@ const Header = () => {
               <ShoppingCartIcon />
             </Button>
           </SheetTrigger>
-          <SheetContent side={"right"}>
+          <SheetContent side={"right"} aria-describedby="menu">
             <Cart />
           </SheetContent>
         </Sheet>
       </Card>
-    </header>
+    </div>
   );
 };
 

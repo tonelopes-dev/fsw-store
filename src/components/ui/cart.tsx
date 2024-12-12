@@ -1,4 +1,5 @@
 "use client";
+
 import { ShoppingCartIcon } from "lucide-react";
 import { Badge } from "./badge";
 import { useContext } from "react";
@@ -16,25 +17,29 @@ const Cart = () => {
   const { products, subtotal, total, totalDiscount } = useContext(CartContext);
 
   const handleFinishPurchase = async () => {
-    const sessionId = await createCheckout(products); // Recebe apenas o sessionId
+    const sessionId = await createCheckout(products);
 
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!); // Use a chave pública aqui
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
     if (stripe) {
-      await stripe.redirectToCheckout({ sessionId }); // Redireciona para o Stripe
+      await stripe.redirectToCheckout({ sessionId });
     }
   };
 
   return (
     <div className="flex h-full flex-col gap-8 text-sm">
+      {/* Header do Carrinho */}
       <Badge variant="heading">
         <ShoppingCartIcon size={18} />
-        <SheetTitle className="w-fit rounded-full px-2 py-[0.375rem] text-base uppercase">
+        <SheetTitle
+          className="w-fit rounded-full px-2 py-[0.375rem] text-base uppercase"
+          aria-describedby="cart"
+        >
           Carrinho
         </SheetTitle>
       </Badge>
 
-      {/* RENDERIZAR OS PRODUTOS */}
+      {/* Produtos no Carrinho */}
       <div className="flex h-full max-h-full flex-col gap-5 overflow-hidden">
         <ScrollArea className="h-full">
           <div className="flex h-full flex-col gap-8">
@@ -47,13 +52,15 @@ const Cart = () => {
               ))
             ) : (
               <p className="text-center font-semibold">
-                Seu carrinho está vazio.
+                Seu carrinho está vazio.
               </p>
             )}
           </div>
         </ScrollArea>
       </div>
-      {products.length > 0 && products.length > 0 && (
+
+      {/* Resumo do Carrinho */}
+      {products.length > 0 && (
         <div className="flex flex-col gap-3">
           <Separator />
 
@@ -83,6 +90,7 @@ const Cart = () => {
             <p>R$ {total.toFixed(2)}</p>
           </div>
 
+          {/* Botão Finalizar Compra */}
           <Button
             className="mt-7 font-bold uppercase"
             onClick={handleFinishPurchase}
