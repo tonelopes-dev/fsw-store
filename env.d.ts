@@ -9,6 +9,7 @@ declare namespace NodeJS {
     NEXTAUTH_SECRET: string;
     HOST_URL: string;
     NEXTAUTH_URL: string;
+    VERCEL_URL: string;
     NODE_ENV: "development" | "production";
   }
   interface global {

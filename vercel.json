@@ -1,19 +1,10 @@
 {
   "builds": [
     {
-      "src": "next.config.js",
-      "use": "@vercel/node"
+      "src": "package.json",
+      "use": "@vercel/next"
     }
   ],
   "version": 2,
-  "env": {
-    "DATABASE_URL": "@DATABASE_URL"
-  },
-  "framework": "nextjs",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ]
+  "framework": "nextjs"
 }

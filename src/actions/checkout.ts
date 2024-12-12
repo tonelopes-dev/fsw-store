@@ -27,8 +27,8 @@ const createCheckout = async (products: CartProduct[]) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://localhost:3000/",
-    cancel_url: "http://localhost:3000/",
+    success_url: process.env.NEXTAUTH_URL || process.env.VERCEL_URL,
+    cancel_url: process.env.NEXTAUTH_URL || process.env.VERCEL_URL,
   });
 
   return session.id;
