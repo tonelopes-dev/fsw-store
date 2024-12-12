@@ -47,7 +47,7 @@ const Header = () => {
           </SheetTrigger>
           <SheetContent side={"left"}>
             <SheetHeader className="text-left text-lg font-semibold">
-              <SheetTitle>Menu</SheetTitle>
+              <SheetTitle aria-describedby="menu">Menu</SheetTitle>
             </SheetHeader>
 
             {status === "authenticated" && data?.user && (
