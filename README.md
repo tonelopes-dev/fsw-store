@@ -77,6 +77,7 @@ src/
 
 ## 📌 Próximos Passos
 
+- Versão Desktop 💻
 - Melhorar a acessibilidade (a11y) com atributos ARIA.
 - Adicionar testes unitários e de integração.
 - Criar página "Meus Pedidos".
