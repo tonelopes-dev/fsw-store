@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A FSW Store é uma aplicação de e-commerce desenvolvida com foco em fornecer uma experiência de compra moderna, responsiva e funcional. Este projeto foi criado com tecnologias modernas como Next.js, Stripe e Tailwind CSS, e segue as melhores práticas para desenvolvimento web.
 
-## Getting Started
+## 🎨 Protótipo
 
-First, run the development server:
+O design do projeto foi cuidadosamente planejado no Figma. Você pode visualizar o protótipo completo [aqui](https://www.figma.com/design/5AQGxZZGDHFBaQK9c2sH0b/FSW-Store?node-id=89-280&p=f).
+
+![App Screenshot](/public/prints/print-mockup-project-fsw-store.png)
+
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js:** Framework React para desenvolvimento de aplicações web server-side e client-side.
+- **Tailwind CSS:** Framework de CSS utilitário para estilização.
+- **Stripe:** Integração para pagamentos e gerenciamento de checkout.
+- **NextAuth.js:** Gerenciamento de autenticação com provedores como Google.
+- **Lucide-react:** Ícones modernos para melhorar a interface.
+- **React Context API:** Gerenciamento de estado global, como o carrinho de compras.
+
+## 🚀 Tecnologias Utilizadas
+
+- **Autenticação:** Login e logout com NextAuth.
+- **Carrinho de Compras:** Adicionar, visualizar e gerenciar produtos no carrinho.
+- **Checkout:** Integração com Stripe para finalizar compras.
+- **Catálogo de Produtos:** Navegação entre categorias e visualização de produtos.
+- **Menu Interativo:** Design responsivo e acessível.
+- **Descontos:** Cálculo dinâmico de descontos no carrinho.
+
+## 🚀 Tecnologias Utilizadas
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/fsw-store.git
+cd fsw-store
+```
+
+2.Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Configure as variáveis de ambiente no arquivo .env.local:
+
+```bash
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=<sua-chave-publica>
+STRIPE_SECRET_KEY=<sua-chave-secreta>
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=<seu-segredo>
+```
+
+4. Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Acesse no navegador:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Estrutura do Projeto
 
-## Learn More
+```bash
+src/
+├── actions/       # Funções de ações, como o checkout
+├── components/    # Componentes reutilizáveis
+├── helpers/       # Funções utilitárias
+├── pages/         # Páginas da aplicação
+├── providers/     # Context API e providers
+└── styles/        # Configuração de estilos
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 Próximos Passos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Melhorar a acessibilidade (a11y) com atributos ARIA.
+- Adicionar testes unitários e integração.
+- Expandir as funcionalidades do carrinho, como salvamento persistente.
