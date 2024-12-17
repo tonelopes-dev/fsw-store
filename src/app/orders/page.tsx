@@ -25,7 +25,7 @@ async function OrderPage() {
     },
   });
   return (
-    <div className="p-5">
+    <div className="p-5 lg:container lg:mx-auto lg:py-10">
       <Badge
         className="w-fit gap-1 rounded-full border-2 border-primary px-3 py-[0.375rem] text-base uppercase"
         variant="outline"
@@ -33,7 +33,7 @@ async function OrderPage() {
         <ShapesIcon size={16} />
         Meus pedidos
       </Badge>
-      <div className="flex flex-col gap-5">
+      <div className="mt-5 flex flex-col gap-5">
         {orders.map((order) => (
           <OrderItem key={order.id} order={order} />
         ))}
