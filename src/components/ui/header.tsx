@@ -28,6 +28,8 @@ import Cart from "./cart";
 
 const Header = () => {
   const { status, data } = useSession();
+  console.log("User image:", data?.user?.image);
+
   const handleLoginClick = async () => {
     await signIn();
   };
@@ -54,10 +56,10 @@ const Header = () => {
               <div className="flex flex-col">
                 <div className="flex items-center gap-3 py-3">
                   <Avatar>
+                    {data.user.image && <AvatarImage src={data.user.image!} />}
                     <AvatarFallback>
                       {data?.user?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
-                    {data.user.image && <AvatarImage src={data.user.image!} />}
                   </Avatar>
                   <div className="flex flex-col">
                     <p className="font-semibold">{data?.user?.name}</p>

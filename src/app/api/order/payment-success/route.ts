@@ -1,3 +1,4 @@
+import { prismaClient } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -19,42 +20,29 @@ export const POST = async (request: Request) => {
     process.env.STRIPE_WEBHOOK_SECRET_KEY!,
   );
 
-  /* if (event.type === "checkout.session.completed") {
-      console.log("Checkout session completed:", event.data.object);
+  if (event.type === "checkout.session.completed") {
+    // console.log("Checkout session completed:", event.data.object);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session = event.data.object as any;
 
-    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-      event.data.object.id,
-      {
-        expand: ["line_items"],
+    const order = await prismaClient.order.update({
+      where: {
+        id: session.metadata.orderId,
       },
-    );
-    const orderProducts = sessionWithLineItems.line_items;
-    console.log(orderProducts);
-  }*/
+      data: {
+        status: "PAYMENT_CONFIRMED",
+      },
+    });
+    console.log(order);
+  }
 
   if (event.type === "checkout.session.async_payment_failed") {
     // console.log("Checkout session failed:", event.data.object);
   }
-  // CRIAR PEDIDO
+
+  // atualizar PEDIDO
 
   //ENVIAR EMAIL
 
   return NextResponse.json({ received: true });
 };
-/*  model Order {
-    id            String         @id @default(uuid())
-    userId        String
-    user          User           @relation(fields: [userId], references: [id])
-    orderProducts OrderProduct[]
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @default(now()) @updatedAt
-    status        OrderStatus    @default(WAITING_FOR_PAYMENT)
-
-
-    await prismaClient.order.create({
-      data: {
-        status: "PAYMENT_CONFIRMED",
-        orderProducts: {},
-      },
-    });
-  } */

@@ -38,9 +38,9 @@ model Order {
   userId        String
   user          User           @relation(fields: [userId], references: [id])
   orderProducts OrderProduct[]
+  status        OrderStatus    @default(WAITING_FOR_PAYMENT)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @default(now()) @updatedAt
-  status        OrderStatus    @default(WAITING_FOR_PAYMENT)
 }
 
 enum OrderStatus {
@@ -50,13 +50,13 @@ enum OrderStatus {
 
 model OrderProduct {
   id                 String  @id @default(uuid())
+  orderId            String
   productId          String
   product            Product @relation(fields: [productId], references: [id])
-  orderId            String
   order              Order   @relation(fields: [orderId], references: [id])
   basePrice          Decimal @db.Decimal(8, 2)
-  discountPercentage Int     @default(0)
   quantity           Int
+  discountPercentage Int     @default(0)
 }
 
 model Account {

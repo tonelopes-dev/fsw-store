@@ -3,7 +3,7 @@
 import { CartProduct } from "@/providers/cart";
 import Stripe from "stripe";
 
-const createCheckout = async (products: CartProduct[]) => {
+const createCheckout = async (products: CartProduct[], orderId: string) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2024-11-20.acacia",
   });
@@ -22,16 +22,17 @@ const createCheckout = async (products: CartProduct[]) => {
     quantity: product.quantity,
   }));
 
-  const session = await stripe.checkout.sessions.create({
+  const checkout = await stripe.checkout.sessions.create({
     shipping_address_collection: { allowed_countries: ["BR"] },
     payment_method_types: ["card"],
     line_items: lineItems,
+    metadata: { orderId },
     mode: "payment",
     success_url: process.env.VERCEL_URL,
     cancel_url: process.env.VERCEL_URL,
   });
 
-  return session.id;
+  return checkout.id;
 };
 
 export default createCheckout;
