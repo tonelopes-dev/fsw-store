@@ -22,27 +22,25 @@ interface CategoriesTableProps {
 }
 const CategoriesTable = ({ categories }: CategoriesTableProps) => {
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Nome</TableHead>
-            <TableHead>Categoria</TableHead>
-            <TableHead>Porcentagem das vendas</TableHead>
+    <Table>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Nome</TableHead>
+          <TableHead>Categoria</TableHead>
+          <TableHead>Porcentagem das vendas</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {categories.map((categories) => (
+          <TableRow key={categories.id}>
+            <TableCell>{categories.name}</TableCell>
+            <TableCell>{categories.products.length}</TableCell>
+            <TableCell>0%</TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {categories.map((categories) => (
-            <TableRow key={categories.id}>
-              <TableCell>{categories.name}</TableCell>
-              <TableCell>{categories.products.length}</TableCell>
-              <TableCell>0%</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
