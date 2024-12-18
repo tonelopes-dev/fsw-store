@@ -1,4 +1,3 @@
-"use client";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,16 +39,16 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
           {product.discountPercentage > 0 ? (
             <>
               <p className="truncate font-semibold lg:text-lg">
-                R$ {product.totalPrice}
+                R$ {product.totalPrice.toFixed(2)}
               </p>
 
               <p className="truncate text-xs line-through opacity-75 lg:text-sm">
-                R$ {product.basePrice}
+                R$ {Number(product.basePrice).toFixed(2)}
               </p>
             </>
           ) : (
             <p className="truncate text-sm font-semibold">
-              R$ {product.basePrice}
+              R$ {product.basePrice.toFixed(2)}
             </p>
           )}
         </div>

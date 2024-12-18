@@ -37,7 +37,7 @@ const ProductInfo = ({ product }: ProductInforProps) => {
       <h2 className="text-lg">{product.name}</h2>
       <div className="flex items-center gap-2">
         <h1 className="text-xl font-bold">
-          R$ {Number(product.totalPrice.toFixed(2))}
+          R$ {Number(product.totalPrice).toFixed(2)}
         </h1>
         {product.discountPercentage > 0 && (
           <DiscountBadge>{product.discountPercentage}</DiscountBadge>
