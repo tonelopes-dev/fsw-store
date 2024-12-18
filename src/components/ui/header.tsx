@@ -29,7 +29,6 @@ import Cart from "./cart";
 
 const Header = () => {
   const { status, data } = useSession();
-  console.log("User image:", data?.user?.image);
 
   const handleLoginClick = async () => {
     await signIn();

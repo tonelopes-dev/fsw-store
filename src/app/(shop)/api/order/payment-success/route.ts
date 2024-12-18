@@ -21,11 +21,10 @@ export const POST = async (request: Request) => {
   );
 
   if (event.type === "checkout.session.completed") {
-    // console.log("Checkout session completed:", event.data.object);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const session = event.data.object as any;
 
-    const order = await prismaClient.order.update({
+     await prismaClient.order.update({
       where: {
         id: session.metadata.orderId,
       },
@@ -33,14 +32,9 @@ export const POST = async (request: Request) => {
         status: "PAYMENT_CONFIRMED",
       },
     });
-    console.log(order);
   }
 
-  if (event.type === "checkout.session.async_payment_failed") {
-    // console.log("Checkout session failed:", event.data.object);
-  }
 
-  // atualizar PEDIDO
 
   //ENVIAR EMAIL
 
