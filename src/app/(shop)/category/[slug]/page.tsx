@@ -46,7 +46,7 @@ const CategoryProducts = async ({ params }: CategoryProductsProps) => {
             key={product.id}
             product={{
               ...product,
-              totalPrice: computeProductTotalPrice(product).totalPrice,
+              totalPrice: computeProductTotalPrice(product),
             }}
           />
         ))}

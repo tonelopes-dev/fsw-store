@@ -13,7 +13,10 @@ const ProductList = ({ products }: ProductListProps) => {
         <div key={product.id} className="flex flex-col gap-2">
           <ProductItem
             key={product.id}
-            product={computeProductTotalPrice(product)}
+            product={{
+              ...product,
+              totalPrice: computeProductTotalPrice(product),
+            }}
           />
         </div>
       ))}
