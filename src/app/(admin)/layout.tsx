@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { AuthProvider } from "@/providers/auth";
-// import Sidebar from "./dashboard/components/sidebar";
+import Sidebar from "./components/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +21,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex h-full flex-col">
           <AuthProvider>
-            <div className="flex overflow-hidden">
-              {/* <Sidebar /> */}
+            <div className="flex">
+              <Sidebar />
               {children}
             </div>
           </AuthProvider>
