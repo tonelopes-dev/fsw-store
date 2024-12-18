@@ -19,16 +19,18 @@ const Sidebar = () => {
       </h1>
 
       <div className="flex w-full flex-col gap-3">
-        <Button
-          variant="outline"
-          className={
-            `flex w-full justify-start gap-2 hover:bg-primary hover:text-white` +
-            (path === "/dashboard" ? " bg-primary text-white" : "")
-          }
-        >
-          <LayoutDashboardIcon size={16} />
-          Dashboard
-        </Button>
+        <Link href="/dashboard">
+          <Button
+            variant="outline"
+            className={
+              `flex w-full justify-start gap-2 hover:bg-primary hover:text-white` +
+              (path === "/dashboard" ? " bg-primary text-white" : "")
+            }
+          >
+            <LayoutDashboardIcon size={16} />
+            Dashboard
+          </Button>
+        </Link>
 
         <Link href="/dashboard/products">
           <Button
@@ -56,16 +58,18 @@ const Sidebar = () => {
           </Button>
         </Link>
 
-        <Button
-          variant="outline"
-          className={
-            `flex w-full justify-start gap-2 hover:bg-primary hover:text-white` +
-            (path === "/dashboard/orders" ? " bg-primary text-white" : "")
-          }
-        >
-          <PackageSearchIcon size={16} />
-          Pedidos
-        </Button>
+        <Link href="/dashboard/orders">
+          <Button
+            variant="outline"
+            className={
+              `flex w-full justify-start gap-2 hover:bg-primary hover:text-white` +
+              (path === "/dashboard/orders" ? " bg-primary text-white" : "")
+            }
+          >
+            <PackageSearchIcon size={16} />
+            Pedidos
+          </Button>
+        </Link>
       </div>
     </div>
   );

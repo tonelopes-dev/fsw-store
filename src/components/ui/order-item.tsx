@@ -10,54 +10,80 @@ import { format } from "date-fns";
 import OrderProductItem from "./order-product-item";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
-import { getOrderStatus } from "../helpers/status";
+import { computeProductTotalPrice } from "@/helpers/product";
+import { getOrderStatus } from "../../app/(shop)/orders/helpers/status";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
     include: {
       orderProducts: {
-        include: {
-          product: true;
-        };
+        include: { product: true };
       };
     };
   }>;
 }
+
 const OrderItem = ({ order }: OrderItemProps) => {
   const subtotal = useMemo(() => {
-    return order.orderProducts.reduce((acc, product) => {
-      return acc + Number(product.basePrice) * product.quantity;
-    }, 0);
-  }, [order.orderProducts]);
-
-  const totalDiscount = useMemo(() => {
-    return order.orderProducts.reduce((acc, product) => {
+    return order.orderProducts.reduce((acc, orderProduct) => {
       return (
-        acc + (product.discountPercentage / 100) * Number(product.basePrice)
+        acc + Number(orderProduct.product.basePrice) * orderProduct.quantity
       );
     }, 0);
   }, [order.orderProducts]);
 
-  const totalPrice = subtotal - totalDiscount;
+  const total = useMemo(() => {
+    return order.orderProducts.reduce((acc, product) => {
+      const productTotalPrice = computeProductTotalPrice(product.product);
+
+      return acc + productTotalPrice * product.quantity;
+    }, 0);
+  }, [order.orderProducts]);
+
+  const totalDiscounts = subtotal - total;
 
   return (
     <Card className="px-5">
       <Accordion type="single" className="w-full" collapsible>
-        <AccordionItem value={order.id.toString()}>
+        <AccordionItem value={order.id}>
           <AccordionTrigger>
-            <div className="flex flex-col gap-1 text-left">
-              <p>Pedido com {order.orderProducts.length} produtos</p>
-              <p className="text-xs opacity-60">
-                Feito em {format(order.createdAt, "d/MM/y 'às' HH:mm")}
-              </p>
+            <div className="flex w-full text-left">
+              <div className="flex min-w-[350px] flex-1 flex-col gap-1 text-left">
+                <p className="text-sm font-bold uppercase lg:text-base">
+                  Pedido com {order.orderProducts.length} produto(s)
+                </p>
+                <span className="text-xs opacity-60">
+                  Feito em {format(order.createdAt, "d/MM/y 'às' HH:mm")}
+                </span>
+              </div>
+
+              <div className="flex-1 font-bold sm:hidden lg:block">
+                <p className="text-xs lg:text-sm">Status</p>
+                <p className="text-xs text-[#8162FF] lg:text-sm">
+                  {getOrderStatus(order.status)}
+                </p>
+              </div>
+
+              <div className="flex-1 sm:hidden lg:block">
+                <p className="text-xs font-bold lg:text-sm">Data</p>
+                <p className="text-xs opacity-60 lg:text-sm">
+                  {format(order.createdAt, "d/MM/y")}
+                </p>
+              </div>
+
+              <div className="flex-1 sm:hidden lg:block">
+                <p className="text-xs font-bold lg:text-sm">Pagamento</p>
+                <p className="text-xs opacity-60 lg:text-sm">Cartão</p>
+              </div>
             </div>
           </AccordionTrigger>
+
           <AccordionContent>
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between lg:hidden">
                 <div className="font-bold">
-                  <p>Status</p>
-                  <p className="text-[#8162ff]">
+                  <p className="text-xs lg:text-sm">Status</p>
+                  <p className="text-xs text-[#8162FF] lg:text-sm">
                     {getOrderStatus(order.status)}
                   </p>
                 </div>
@@ -101,14 +127,14 @@ const OrderItem = ({ order }: OrderItemProps) => {
 
                 <div className="flex w-full justify-between py-3 lg:text-sm">
                   <p>Descontos</p>
-                  <p>-R$ {totalDiscount.toFixed(2)}</p>
+                  <p>-R$ {totalDiscounts.toFixed(2)}</p>
                 </div>
 
                 <Separator />
 
                 <div className="flex w-full justify-between py-3 text-sm font-bold lg:text-base">
                   <p>Total</p>
-                  <p>R$ {totalPrice.toFixed(2)}</p>
+                  <p>R$ {total.toFixed(2)}</p>
                 </div>
               </div>
             </div>

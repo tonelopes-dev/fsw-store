@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { prismaClient } from "@/lib/prisma";
-import { LayoutDashboardIcon, PlusIcon } from "lucide-react";
+import { ListOrderedIcon, PlusIcon } from "lucide-react";
 import CategoriesTable from "./components/categories-table";
 
 const CategoriesPage = async () => {
@@ -18,7 +18,7 @@ const CategoriesPage = async () => {
   return (
     <div className="flex w-full flex-col gap-10 p-10">
       <Badge variant="heading">
-        <LayoutDashboardIcon size={18} />
+        <ListOrderedIcon size={18} />
         Categorias
       </Badge>
 

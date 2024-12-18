@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { prismaClient } from "@/lib/prisma";
 import { ShapesIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import OrderItem from "./components/order-item";
+import OrderItem from "@/components/ui/order-item";
 
 async function OrderPage() {
   const user = getServerSession(authOptions);
