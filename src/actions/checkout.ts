@@ -28,8 +28,8 @@ const createCheckout = async (products: CartProduct[], orderId: string) => {
     line_items: lineItems,
     metadata: { orderId },
     mode: "payment",
-    success_url: process.env.VERCEL_URL,
-    cancel_url: process.env.VERCEL_URL,
+    success_url: process.env.NEXT_PUBLIC_BASE_URL,
+    cancel_url: process.env.NEXT_PUBLIC_BASE_URL,
   });
 
   return checkout.id;
