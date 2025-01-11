@@ -16,6 +16,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -63,7 +64,9 @@ const Header = () => {
                   </Avatar>
                   <div className="flex flex-col">
                     <p className="font-semibold">{data?.user?.name}</p>
-                    <p className="text-xs opacity-75">Boas compras!</p>
+                    <SheetDescription className="text-xs opacity-75">
+                      Boas compras!
+                    </SheetDescription>
                   </div>
                 </div>
                 <Separator />
