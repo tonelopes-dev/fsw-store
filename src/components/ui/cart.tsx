@@ -122,10 +122,15 @@ const Cart = () => {
 
           {/* Botão Finalizar Compra */}
           {isLoading ? (
-            <Button disabled>
-              Carregando...
-              <Loader2 className="animate-spin" />
-            </Button>
+            <div className="mt-7">
+              <Button
+                disabled
+                className="flex w-full items-center justify-center gap-2 font-extralight"
+              >
+                <span className="flex-1">Carregando...</span>
+                <Loader2 className="animate-spin" />
+              </Button>
+            </div>
           ) : data?.user ? (
             <Button
               className="mt-7 font-bold uppercase"
