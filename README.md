@@ -75,6 +75,19 @@ src/
 └── providers/     # Context API e providers
 ```
 
+## 💳 Finalize sua compra no Stripe 
+
+```bash 
+Número do cartão: 4242 4242 4242 4242 
+```
+```bash 
+Data de vencimento: qualquer data futura (ex: 04/30)
+```
+```bash 
+CVC: Qualquer número (Ex: 123)
+```
+
+
 ## 📌 Próximos Passos
 
 - Versão Desktop 💻
