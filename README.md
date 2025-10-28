@@ -6,7 +6,7 @@ A **FSW Store** é uma aplicação de e-commerce desenvolvida com foco em fornec
 
 O design do projeto foi cuidadosamente planejado no Figma. Você pode visualizar o protótipo completo [aqui](https://www.figma.com/design/5AQGxZZGDHFBaQK9c2sH0b/FSW-Store?node-id=89-280&p=f).
 
-![App Screenshot](/public/prints/print-mockup-project-fsw-store.png)
+![App Screenshot](https://tone-monte-portfolio-v3.s3.us-east-1.amazonaws.com/projects/1758298651603-aed2sl-banner-fsw-store.png)
 
 ## 🚀 Tecnologias Utilizadas
 
