@@ -12,8 +12,8 @@ const ProductImages = ({ imageUrls, name }: ProductImagesPros) => {
     setCurrentProductImage(imageUrl);
   };
   return (
-    <div className="flex flex-col">
-      <div className="flex h-[380px] w-full items-center justify-center bg-accent">
+    <div className="flex flex-col lg:h-full">
+      <div className="flex h-[380px] w-full items-center justify-center bg-accent lg:h-full lg:rounded-lg">
         <Image
           src={currentProductImage}
           alt={name}
@@ -26,11 +26,11 @@ const ProductImages = ({ imageUrls, name }: ProductImagesPros) => {
           }}
         />
       </div>
-      <div className="mt-8 flex grid-cols-4 gap-4 px-5">
+      <div className="mt-8 flex grid-cols-4 gap-4 px-5 lg:px-0">
         {imageUrls.map((imageUrl, index) => (
           <button
             key={index}
-            className={`flex h-[100px] items-center justify-center rounded-lg bg-accent ${imageUrl === currentProductImage && "border-2 border-solid border-primary"}`}
+            className={`flex h-[100px] items-center justify-center rounded-lg bg-accent lg:h-[100px] lg:w-full ${imageUrl === currentProductImage && "border-2 border-solid border-primary"}`}
             onClick={() => handleImageClick(imageUrl)}
           >
             <Image

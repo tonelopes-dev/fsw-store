@@ -34,12 +34,22 @@ const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
   // Converting the product data to avoid Decimal objects being passed to client components
 
   return (
-    <div className="pb8 flex flex-col gap-8">
-      <ProductImages imageUrls={product.imageUrls} name={product.name} />
+    <div className="flex flex-col gap-8 pb-8 lg:container lg:mx-auto lg:py-10">
+      <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
+        <div className="lg:w-3/5">
+          <ProductImages imageUrls={product.imageUrls} name={product.name} />
+        </div>
 
-      <ProductInfo
-        product={{ ...product, totalPrice: computeProductTotalPrice(product) }}
-      />
+        <div className="lg:w-2/5">
+          <ProductInfo
+            product={{
+              ...product,
+              totalPrice: computeProductTotalPrice(product),
+            }}
+          />
+        </div>
+      </div>
+
       <div>
         <SectionTitle>Produtos recomendados</SectionTitle>
         <ProductList products={product.category.products} />
